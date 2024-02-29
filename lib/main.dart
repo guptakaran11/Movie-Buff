@@ -7,11 +7,13 @@ void main() {
   runApp(
     SplashScreen(
       key: UniqueKey(),
-      onInitializationComplete: () => runApp(
-        const ProviderScope(
-          child: MyApp(),
-        ),
-      ),
+      onInitializationComplete: () {
+        runApp(
+          const ProviderScope(
+            child: MyApp(),
+          ),
+        );
+      },
     ),
   );
 }
@@ -25,13 +27,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movies ',
       initialRoute: 'home',
+      routes: {
+        'home': (BuildContext context) => const HomePage(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      routes: {
-        'home': (BuildContext context) => const HomePage(),
-      },
     );
   }
 }

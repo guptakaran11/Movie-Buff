@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:entertainment/models/appConfigModel.dart';
+import 'package:entertainment/services/httpServices.dart';
+import 'package:entertainment/services/moviesServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -22,12 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Future.delayed(const Duration(seconds: 1)).then((_) {
-    //   widget.onInitializationComplete();
-    // });
-    setup(context).then(
+    Future.delayed(const Duration(seconds: 1)).then(
       (_) {
-        widget.onInitializationComplete();
+        setup(context).then(
+          (_) {
+            widget.onInitializationComplete();
+          },
+        );
       },
     );
   }
@@ -45,6 +48,14 @@ class _SplashScreenState extends State<SplashScreen> {
         BASE_IMAGE_API_URL: configData['BASE_IMAGE_API_URL'],
         API_KEY: configData['API_KEY'],
       ),
+    );
+
+    getIt.registerSingleton<HTTPService>(
+      HTTPService(),
+    );
+
+    getIt.registerSingleton<MoviesServices>(
+      MoviesServices(),
     );
   }
 
