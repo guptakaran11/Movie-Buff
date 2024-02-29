@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Movies ',
       initialRoute: 'home',
       routes: {
-        'home': (BuildContext context) => const HomePage(),
+        'home': (BuildContext context) => HomePage(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
