@@ -32,6 +32,7 @@ class HomePage extends ConsumerWidget {
 
   Widget buildUI() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: SizedBox(
         height: height,
@@ -205,8 +206,9 @@ class HomePage extends ConsumerWidget {
           description:
               "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
           posterPath:
-              "https://image.tmdb.org/t/p/w500/4woSOUD0equAYzvwhWBHIJDCM88.jpg", //changes done by myself
-          backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+              "https://image.tmdb.org/t/p/original/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
+          backDropPath:
+              "https://image.tmdb.org/t/p/original/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
           rating: 5.8,
           releaseDate: "2024-01-18",
         ),

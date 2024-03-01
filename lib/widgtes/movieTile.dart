@@ -31,7 +31,7 @@ class MovieTile extends StatelessWidget {
   Widget movieInfoWidget() {
     return SizedBox(
       height: height,
-      width: width! * 0.66,
+      width: width! * 0.67,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +45,7 @@ class MovieTile extends StatelessWidget {
               SizedBox(
                 width: width! * 0.56,
                 child: Text(
-                  movie!.name,
+                  movie!.name!,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Colors.white,
@@ -66,7 +66,7 @@ class MovieTile extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(0, height! * 0.02, 0, 0),
             child: Text(
-              '${movie!.language.toUpperCase()} | R: ${movie!.isAdult} | ${movie!.releaseDate}',
+              '${movie!.language!.toUpperCase()} | R: ${movie!.isAdult} | ${movie!.releaseDate}',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -76,7 +76,7 @@ class MovieTile extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(0, height! * 0.07, 0, 0),
             child: Text(
-              movie!.description,
+              movie!.description!,
               maxLines: 9,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -91,16 +91,21 @@ class MovieTile extends StatelessWidget {
   }
 
   Widget moviePosterWidget(String imageURL) {
-    return Container(
-      height: height,
-      width: width! * 0.35,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-            imageURL,
+    if (imageURL.isNotEmpty) {
+      return Container(
+        height: height,
+        width: width! * 0.35,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              imageURL,
+            ),
           ),
         ),
-      ),
-    );
+        child: Image.network(imageURL),
+      );
+    } else {
+      return Container();
+    }
   }
 }

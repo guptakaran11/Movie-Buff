@@ -5,24 +5,24 @@ import 'package:entertainment/models/appConfigModel.dart';
 import 'package:get_it/get_it.dart';
 
 class MoviesList {
-  final String name;
-  final String language;
-  final bool isAdult;
-  final String description;
-  final String posterPath;
-  final String backDropPath;
-  final num rating;
-  final String releaseDate;
+  final String? name;
+  final String? language;
+  final bool? isAdult;
+  final String? description;
+  final String? posterPath;
+  final String? backDropPath;
+  final num? rating;
+  final String? releaseDate;
 
   MoviesList({
-    required this.name,
-    required this.language,
-    required this.isAdult,
-    required this.description,
-    required this.posterPath,
-    required this.backDropPath,
-    required this.rating,
-    required this.releaseDate,
+    this.name,
+    this.language,
+    this.isAdult,
+    this.description,
+    this.posterPath,
+    this.backDropPath,
+    this.rating,
+    this.releaseDate,
   });
 
   Map<String, dynamic> toMap() {
