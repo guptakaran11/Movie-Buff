@@ -1,10 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, file_names
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/models/searchCategory.dart';
+import 'package:entertainment/widgtes/movieTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -79,7 +81,7 @@ class HomePage extends ConsumerWidget {
   Widget foregroundWidgets() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, height! * 0.02, 0, 0),
-      width: height! * 0.88,
+      width: width! * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -194,17 +196,19 @@ class HomePage extends ConsumerWidget {
   Widget movieListViewWidget() {
     final List<MoviesList> movies = [];
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 10; i++) {
       movies.add(
         MoviesList(
-          name: "Mortal Kombat",
-          language: "EN",
+          name: "No Way Up",
+          language: "en",
           isAdult: false,
-          description: "A fantastic game",
-          posterPath: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
-          backDropPath: "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
-          rating: 7.8,
-          releaseDate: "07-01-2024",
+          description:
+              "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
+          posterPath:
+              "https://image.tmdb.org/t/p/w500/4woSOUD0equAYzvwhWBHIJDCM88.jpg", //changes done by myself
+          backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+          rating: 5.8,
+          releaseDate: "2024-01-18",
         ),
       );
     }
@@ -219,7 +223,11 @@ class HomePage extends ConsumerWidget {
               ),
               child: GestureDetector(
                 onTap: () {},
-                child: Text(movies[index].name),
+                child: MovieTile(
+                  movie: movies[index],
+                  height: height! * 0.20,
+                  width: width! * 0.85,
+                ),
               ),
             );
           });

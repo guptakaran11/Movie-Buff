@@ -27,27 +27,27 @@ class MoviesList {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'title': name,
-      'original_language': language,
-      'adult': isAdult,
-      'overview': description,
-      'poster_path': posterPath,
-      'backdrop_path': backDropPath,
-      'vote_average': rating,
-      'release_date': releaseDate,
+      "original_title": name,
+      "original_language": language,
+      "adult": isAdult,
+      "overview": description,
+      "poster_path": posterPath,
+      "backdrop_path": backDropPath,
+      "vote_average": rating,
+      "release_date": releaseDate,
     };
   }
 
   factory MoviesList.fromMap(Map<String, dynamic> map) {
     return MoviesList(
-      name: map['title'] as String,
-      language: map['original_language'] as String,
-      isAdult: map['adult'] as bool,
-      description: map['overview'] as String,
-      posterPath: map['poster_path'] as String,
-      backDropPath: map['backdrop_path'] as String,
-      rating: map['vote_average'] as num,
-      releaseDate: map['release_date'] as String,
+      name: map["original_title"] as String,
+      language: map["original_language"] as String,
+      isAdult: map["adult"] as bool,
+      description: map["overview"] as String,
+      posterPath: map["poster_path"] as String,
+      backDropPath: map["backdrop_path"] as String,
+      rating: map["vote_average"] as num,
+      releaseDate: map["release_date"] as String,
     );
   }
 
