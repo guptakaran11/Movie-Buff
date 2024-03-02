@@ -4,15 +4,25 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:entertainment/controllers/homePageDataController.dart';
+import 'package:entertainment/models/homePageModel.dart';
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/models/searchCategory.dart';
 import 'package:entertainment/widgtes/movieTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final homePageDataControllerProvider =
+    StateNotifierProvider<HomePageDataController, HomePageModel>((ref) {
+  return HomePageDataController();
+});
+
 class HomePage extends ConsumerWidget {
   double? height;
   double? width;
+
+  late HomePageDataController homePageDataController;
+  late HomePageModel homePageModel;
 
   TextEditingController? searchTextFieldcontroller;
   HomePage({
@@ -26,6 +36,10 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+
+    homePageDataController = ref.watch(homePageDataControllerProvider.notifier);
+    homePageModel = ref.watch(homePageDataControllerProvider);
+    
     searchTextFieldcontroller = TextEditingController();
     return buildUI();
   }
@@ -85,7 +99,7 @@ class HomePage extends ConsumerWidget {
       width: width! * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           topBarWidget(),

@@ -20,6 +20,7 @@ class HTTPService {
   Future<Response> get(String path, {Map<String, dynamic>? query}) async {
     try {
       String url = '$baseUrl$path';
+      log(url);
       Map<String, dynamic> queryPath = {
         'apiKey': apiKey,
         'language': 'en-US',
