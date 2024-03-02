@@ -40,6 +40,7 @@ class HomePage extends ConsumerWidget {
     homePageModel = ref.watch(homePageDataControllerProvider);
 
     searchTextFieldcontroller = TextEditingController();
+    searchTextFieldcontroller!.text = homePageModel.searchText!;
     return buildUI();
   }
 
@@ -210,40 +211,55 @@ class HomePage extends ConsumerWidget {
   Widget movieListViewWidget() {
     final List<MoviesList> movies = homePageModel.movies!;
 
-    // for (var i = 0; i < 10; i++) {
-    //   movies.add(
-    //     MoviesList(
-    //       name: "No Way Up",
-    //       language: "en",
-    //       isAdult: false,
-    //       description:
-    //           "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
-    //       posterPath: "/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
-    //       backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
-    //       rating: 5.8,
-    //       releaseDate: "2024-01-18",
-    //     ),
-    //   );
-    // }
+    for (var i = 0; i < 10; i++) {
+      movies.add(
+        MoviesList(
+          name: "No Way Up",
+          language: "en",
+          isAdult: false,
+          description:
+              "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
+          posterPath: "/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
+          backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+          rating: 5.8,
+          releaseDate: "2024-01-18",
+        ),
+      );
+    }
 
     if (movies.isNotEmpty) {
-      return ListView.builder(
-          itemCount: movies.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: height! * 0.01,
-              ),
-              child: GestureDetector(
-                onTap: () {},
-                child: MovieTile(
-                  movie: movies[index],
-                  height: height! * 0.20,
-                  width: width! * 0.85,
+      return NotificationListener(
+        onNotification: (dynamic onScrollNotification) {
+          if (onScrollNotification is ScrollEndNotification) {
+            final before = onScrollNotification.metrics.extentBefore;
+            final max = onScrollNotification.metrics.maxScrollExtent;
+            if (before == max) {
+              homePageDataController.getMovies();
+              return true;
+            }
+            return false;
+          }
+          return false;
+        },
+        child: ListView.builder(
+            itemCount: movies.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: height! * 0.01,
+                  horizontal: 0,
                 ),
-              ),
-            );
-          });
+                child: GestureDetector(
+                  onTap: () {},
+                  child: MovieTile(
+                    movie: movies[index],
+                    height: height! * 0.20,
+                    width: width! * 0.85,
+                  ),
+                ),
+              );
+            }),
+      );
     } else {
       return const Center(
         child: CircularProgressIndicator(

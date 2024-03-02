@@ -11,19 +11,65 @@ class MoviesServices {
   MoviesServices() {
     http = getIt.get<HTTPService>();
   }
+  // Future<List<MoviesList>?> parseMoviesList(Response? response) async{
+  //   if (response != null && response.statusCode == 200) {
+  //     Map<String, dynamic> data = response.data;
+  //     List<dynamic> results = data['results'];
+  //     List<MoviesList>? movies = results
+  //         .map<MoviesList>((movieData) => MoviesList.fromJson(movieData))
+  //         .toList();
+  //     return movies;
+  //   } else {
+  //     throw Exception('Error while parsing movies list.');
+  //   }
+  // }
 
   Future<List<MoviesList>?> getPopularMovies({int? page}) async {
     Response? response = await http.get('/movie/popular', query: {
       'page': page,
     });
     if (response!.statusCode == 200) {
-      Map data = response.data;
-      List<MoviesList>? movies = data['results'].map<MoviesList>((movieData) {
-        return MoviesList.fromJson(movieData);
-      }).toList();
+      Map<String, dynamic> data = response.data;
+      List<dynamic> results = data['results'];
+      List<MoviesList>? movies = results
+          .map<MoviesList>((movieData) => MoviesList.fromJson(movieData))
+          .toList();
       return movies;
     } else {
       throw Exception('Could\'t load latest movies. ');
+    }
+  }
+
+  Future<List<MoviesList>?> getUpcomingMovies({int? page}) async {
+    Response? response = await http.get('/movie/upcoming', query: {
+      'page': page,
+    });
+    if (response!.statusCode == 200) {
+      Map<String, dynamic> data = response.data;
+      List<dynamic> results = data['results'];
+      List<MoviesList>? movies = results
+          .map<MoviesList>((movieData) => MoviesList.fromJson(movieData))
+          .toList();
+      return movies;
+    } else {
+      throw Exception('Couldn\'t load upcoming movies.');
+    }
+  }
+
+  Future<List<MoviesList>?> searchMovies(String? seachTerm, {int? page}) async {
+    Response? response = await http.get('/search/movie', query: {
+      'query': seachTerm,
+      'page': page,
+    });
+    if (response!.statusCode == 200) {
+      Map<String, dynamic> data = response.data;
+      List<dynamic> results = data['results'];
+      List<MoviesList>? movies = results
+          .map<MoviesList>((movieData) => MoviesList.fromJson(movieData))
+          .toList();
+      return movies;
+    } else {
+      throw Exception('Couldn\'t perform movies search.');
     }
   }
 }

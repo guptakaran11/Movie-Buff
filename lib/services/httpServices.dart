@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -23,18 +24,21 @@ class HTTPService {
       log(url);
       Map<String, dynamic> queryPath = {
         'apiKey': apiKey,
-        'language': 'EN-US',
+        'language': 'en-US',
       };
       if (query != null) {
         queryPath.addAll(query);
       }
-      return await dio.get(url, queryParameters: queryPath);
+      Response response = await dio.get(url, queryParameters: queryPath);
+      log('Response Status Code : ${response.statusCode}');
+      log('response data : ${response.data}');
+      return response;
     } on DioException catch (e) {
       log('Unable to perform get request.');
       log('DioError: $e');
-      if (e.response != null) {
-        log('Response data: ${e.response!.data}');
-      }
+      // if (e.response != null) {
+      //   log('Response data: ${e.response!.data}');
+      // }
       throw Exception(e);
     }
   }

@@ -19,8 +19,12 @@ class HomePageModel {
         searchCategory = SearchCategory.popular,
         searchText = '';
 
-  HomePageModel copyWith(
-      {List<MoviesList>? movies, int? page, String? searchCategory, String? searchText}) {
+  HomePageModel copyWith({
+    List<MoviesList>? movies,
+    int? page,
+    String? searchCategory,
+    String? searchText,
+  }) {
     return HomePageModel(
       movies: movies ?? this.movies,
       page: page ?? this.page,
