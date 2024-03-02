@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:entertainment/models/homePageModel.dart';
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/services/moviesServices.dart';
@@ -10,14 +12,19 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
     getMovies();
   }
 
-  final MoviesServices movieService = GetIt.instance.get<MoviesServices>();
+  final MoviesServices moviesServices = GetIt.instance.get<MoviesServices>();
 
   Future<void> getMovies() async {
     try {
-      List<MoviesList> movies = [];
-      movies = (await movieService.getPopularMovies(page: state.page))!;
+      List<MoviesList>? movies = [];
+      movies = await (moviesServices.getPopularMovies(page: state.page));
+      state = state.copyWith(
+        movies: [...state.movies!, ...movies!],
+        page: state.page! + 1,
+      );
     } catch (e) {
-      print(e);
+      log('$e');
+      // throw Exception(e);
     }
   }
 }

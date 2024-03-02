@@ -2,10 +2,10 @@ import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/models/searchCategory.dart';
 
 class HomePageModel {
-  final List<MoviesList> movies;
-  final int page;
-  final String searchCategory;
-  final String searchText;
+  final List<MoviesList>? movies;
+  final int? page;
+  final String? searchCategory;
+  final String? searchText;
 
   HomePageModel(
       {required this.movies,

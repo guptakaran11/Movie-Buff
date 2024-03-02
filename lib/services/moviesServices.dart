@@ -13,9 +13,10 @@ class MoviesServices {
   }
 
   Future<List<MoviesList>?> getPopularMovies({int? page}) async {
-    Response? response =
-        await http.get('/movie/popular', query: {'page': page});
-    if (response.statusCode == 200) {
+    Response? response = await http.get('/movie/popular', query: {
+      'page': page,
+    });
+    if (response!.statusCode == 200) {
       Map data = response.data;
       List<MoviesList>? movies = data['results'].map<MoviesList>((movieData) {
         return MoviesList.fromJson(movieData);

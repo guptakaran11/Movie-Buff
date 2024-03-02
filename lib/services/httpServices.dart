@@ -12,26 +12,29 @@ class HTTPService {
   String? apiKey;
 
   HTTPService() {
-    AppConfigModel configModel = getIt.get<AppConfigModel>();
-    baseUrl = configModel.BASE_API_URL;
-    apiKey = configModel.API_KEY;
+    AppConfigModel config = getIt.get<AppConfigModel>();
+    baseUrl = config.BASE_API_URL;
+    apiKey = config.API_KEY;
   }
 
-  Future<Response> get(String path, {Map<String, dynamic>? query}) async {
+  Future<Response?> get(String path, {Map<String, dynamic>? query}) async {
     try {
       String url = '$baseUrl$path';
       log(url);
       Map<String, dynamic> queryPath = {
         'apiKey': apiKey,
-        'language': 'en-US',
+        'language': 'EN-US',
       };
       if (query != null) {
         queryPath.addAll(query);
       }
       return await dio.get(url, queryParameters: queryPath);
-    } catch (e) {
+    } on DioException catch (e) {
       log('Unable to perform get request.');
-      log('DioError is: $e');
+      log('DioError: $e');
+      if (e.response != null) {
+        log('Response data: ${e.response!.data}');
+      }
       throw Exception(e);
     }
   }

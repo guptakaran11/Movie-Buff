@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, file_names
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:entertainment/controllers/homePageDataController.dart';
@@ -39,7 +38,7 @@ class HomePage extends ConsumerWidget {
 
     homePageDataController = ref.watch(homePageDataControllerProvider.notifier);
     homePageModel = ref.watch(homePageDataControllerProvider);
-    
+
     searchTextFieldcontroller = TextEditingController();
     return buildUI();
   }
@@ -150,7 +149,7 @@ class HomePage extends ConsumerWidget {
           border: border,
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.white24,
+            color: Colors.white54,
           ),
           hintStyle: TextStyle(
             color: Colors.white54,
@@ -209,25 +208,23 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget movieListViewWidget() {
-    final List<MoviesList> movies = [];
+    final List<MoviesList> movies = homePageModel.movies!;
 
-    for (var i = 0; i < 10; i++) {
-      movies.add(
-        MoviesList(
-          name: "No Way Up",
-          language: "en",
-          isAdult: false,
-          description:
-              "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
-          posterPath:
-              "https://image.tmdb.org/t/p/original/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
-          backDropPath:
-              "https://image.tmdb.org/t/p/original/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
-          rating: 5.8,
-          releaseDate: "2024-01-18",
-        ),
-      );
-    }
+    // for (var i = 0; i < 10; i++) {
+    //   movies.add(
+    //     MoviesList(
+    //       name: "No Way Up",
+    //       language: "en",
+    //       isAdult: false,
+    //       description:
+    //           "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
+    //       posterPath: "/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
+    //       backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
+    //       rating: 5.8,
+    //       releaseDate: "2024-01-18",
+    //     ),
+    //   );
+    // }
 
     if (movies.isNotEmpty) {
       return ListView.builder(
