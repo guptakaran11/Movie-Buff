@@ -166,7 +166,7 @@ class HomePage extends ConsumerWidget {
   Widget categorySelectionWidget() {
     return DropdownButton(
       dropdownColor: Colors.black38,
-      value: SearchCategory.popular,
+      value: homePageModel.searchCategory,
       icon: const Icon(
         Icons.menu,
         color: Colors.white24,
@@ -175,7 +175,11 @@ class HomePage extends ConsumerWidget {
         height: 1,
         color: Colors.white24,
       ),
-      onChanged: (value) {},
+      onChanged: (value) {
+        value.toString().isNotEmpty
+            ? homePageDataController.updateSearchCategory(value)
+            : null;
+      },
       items: const [
         DropdownMenuItem(
           value: SearchCategory.popular,

@@ -29,10 +29,11 @@ class HTTPService {
       if (query != null) {
         queryPath.addAll(query);
       }
-      Response response = await dio.get(url, queryParameters: queryPath);
-      log('Response Status Code : ${response.statusCode}');
-      log('response data : ${response.data}');
-      return response;
+      // Response response = await dio.get(url, queryParameters: query);
+      return await dio.get(url, queryParameters: query);
+      // log('Response Status Code : ${response.statusCode}');
+      // log('response data : ${response.data}');
+      // return response;
     } on DioException catch (e) {
       log('Unable to perform get request.');
       log('DioError: $e');
