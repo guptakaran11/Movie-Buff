@@ -24,7 +24,7 @@ class HTTPService {
   Future<Response?> get(String path, {Map<String, dynamic>? query}) async {
     try {
       String url = '$baseUrl$path';
-
+      log(url);
       Map<String, dynamic> queryPath = {
         "api_key": apikey,
         "language": 'en-US',
@@ -41,6 +41,6 @@ class HTTPService {
       log('Unable to perform get request.');
       log('DioError: $e');
     }
-    return null; 
+    return null;
   }
 }

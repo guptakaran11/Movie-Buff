@@ -38,7 +38,7 @@ class MoviesList {
     );
   }
 
-  posterURL() {
+  String posterURL() {
     final AppConfigModel appConfigModel = GetIt.instance.get<AppConfigModel>();
     return '${appConfigModel.BASE_IMAGE_API_URL}$posterPath';
   }
