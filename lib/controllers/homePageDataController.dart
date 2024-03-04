@@ -18,21 +18,25 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
   Future<void> getMovies() async {
     try {
       List<MoviesList>? movies = [];
+
       if (state.searchText!.isEmpty) {
         if (state.searchCategory == SearchCategory.popular) {
-          movies = await (moviesService.getPopularMovies(page: state.page));
+          movies = await moviesService.getPopularMovies(page: state.page);
         } else if (state.searchCategory == SearchCategory.upcoming) {
-          movies = await (moviesService.getUpcomingMovies(page: state.page));
+          movies = await moviesService.getUpcomingMovies(page: state.page);
         } else if (state.searchCategory == SearchCategory.none) {
           movies = [];
         }
       } else {
-        movies = await (moviesService.searchMovies(state.searchText));
+        log('Searching movies for query: ${state.searchText}');
+        movies = await moviesService.searchMovies(state.searchText);
       }
+      log('Received movies: $movies');
       state = state.copyWith(
         movies: [...state.movies!, ...movies!],
         page: state.page! + 1,
       );
+      log('state is $state');
     } catch (e) {
       log('Error is: $e');
       // throw Exception(e);
@@ -53,7 +57,7 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
     }
   }
 
-  void updateTextSearch(String searchText) {
+  void updateTextSearch(String? searchText) {
     try {
       state = state.copyWith(
         movies: [],

@@ -56,9 +56,9 @@ class MoviesServices {
     }
   }
 
-  Future<List<MoviesList>?> searchMovies(String? seachTerm, {int? page}) async {
+  Future<List<MoviesList>?> searchMovies(String? searchTerm, {int? page}) async {
     Response? response = await http.get('/search/movie', query: {
-      'query': seachTerm,
+      'query': searchTerm,
       'page': page,
     });
     if (response!.statusCode == 200) {

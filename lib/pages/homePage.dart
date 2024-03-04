@@ -143,7 +143,9 @@ class HomePage extends ConsumerWidget {
       height: height! * 0.05,
       child: TextField(
         controller: searchTextFieldcontroller,
-        onSubmitted: (input) {},
+        onSubmitted: (input) {
+          homePageDataController.updateTextSearch(input);
+        },
         style: const TextStyle(color: Colors.white),
         decoration: const InputDecoration(
           focusedBorder: border,
