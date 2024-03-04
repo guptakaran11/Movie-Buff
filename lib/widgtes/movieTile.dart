@@ -11,7 +11,12 @@ class MovieTile extends StatelessWidget {
   final double? width;
   final MoviesList? movie;
 
-  MovieTile({super.key, this.height, this.width, this.movie});
+  MovieTile({
+    this.movie,
+    super.key,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class MovieTile extends StatelessWidget {
   Widget movieInfoWidget() {
     return SizedBox(
       height: height,
-      width: width! * 0.67,
+      width: width! * 0.70,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -43,13 +48,13 @@ class MovieTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: width! * 0.56,
+                width: width! * 0.52,
                 child: Text(
                   movie!.name!,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -58,7 +63,7 @@ class MovieTile extends StatelessWidget {
                 movie!.rating.toString(),
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                 ),
               ),
             ],
@@ -81,7 +86,7 @@ class MovieTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.white70,
-                fontSize: 10,
+                fontSize: 8,
               ),
             ),
           ),

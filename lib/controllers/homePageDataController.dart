@@ -29,7 +29,7 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
         }
       } else {
         log('Searching movies for query: ${state.searchText}');
-        movies = await moviesService.searchMovies(state.searchText);
+        movies = await (moviesService.searchMovies(state.searchText));
       }
       log('Received movies: $movies');
       state = state.copyWith(
@@ -57,7 +57,7 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
     }
   }
 
-  void updateTextSearch(String? searchText) {
+  void updateTextSearch(String searchText) {
     try {
       state = state.copyWith(
         movies: [],

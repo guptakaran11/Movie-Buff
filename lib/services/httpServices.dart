@@ -24,8 +24,8 @@ class HTTPService {
   Future<Response?> get(String path, {Map<String, dynamic>? query}) async {
     try {
       String url = '$baseUrl$path';
-      log(url);
-      Map<String, dynamic>? queryPath = {
+
+      Map<String, dynamic> queryPath = {
         "api_key": apikey,
         "language": 'en-US',
       };
@@ -33,17 +33,14 @@ class HTTPService {
       if (query != null) {
         queryPath.addAll(query);
       }
-      log('problem $dio');
-      Response response = await dio.get(url, queryParameters: queryPath);
+
+      Response? response = await dio.get(url, queryParameters: queryPath);
 
       return response;
     } on DioException catch (e) {
       log('Unable to perform get request.');
       log('DioError: $e');
-      // if (e.response != null) {
-      //   log('Response data: ${e.response!.data}');
-      // }
-      throw Exception(e);
     }
+    return null; 
   }
 }

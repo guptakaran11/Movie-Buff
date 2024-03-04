@@ -11,13 +11,14 @@ import 'package:get_it/get_it.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitializationComplete;
+
   const SplashScreen({
     super.key,
     required this.onInitializationComplete,
   });
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<StatefulWidget> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {

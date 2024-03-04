@@ -7,11 +7,12 @@ class HomePageModel {
   final String? searchCategory;
   final String? searchText;
 
-  HomePageModel(
-      {required this.movies,
-      required this.page,
-      required this.searchCategory,
-      required this.searchText});
+  HomePageModel({
+     this.movies,
+     this.page,
+     this.searchCategory,
+     this.searchText,
+  });
 
   HomePageModel.initial()
       : movies = [],

@@ -5,9 +5,10 @@ class AppConfigModel {
   final String? API_KEY;
   final String? ACCESS_TOKEN_AUTH_KEY;
 
-  AppConfigModel(
-      {this.BASE_API_URL,
-      this.BASE_IMAGE_API_URL,
-      this.API_KEY,
-      this.ACCESS_TOKEN_AUTH_KEY});
+  AppConfigModel({
+    this.BASE_API_URL,
+    this.BASE_IMAGE_API_URL,
+    this.API_KEY,
+    this.ACCESS_TOKEN_AUTH_KEY,
+  });
 }

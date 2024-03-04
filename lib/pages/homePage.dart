@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, file_names
+// ignore_for_file: public_member_api_docs, sort_constructors_first, file_names, prefer_typing_uninitialized_variables, use_key_in_widget_constructors
 // ignore_for_file: must_be_immutable
 
 import 'dart:ui';
@@ -16,14 +16,21 @@ final homePageDataControllerProvider =
   return HomePageDataController();
 });
 
+final selectedMoviePosterUrlProvider = StateProvider<String>((ref) {
+  final movies = ref.watch(homePageDataControllerProvider).movies!;
+  return movies.isNotEmpty ? movies[0].posterURL() : 'null';
+});
+
 class HomePage extends ConsumerWidget {
   double? height;
   double? width;
+  late var selectedMoviePosterURL;
 
   late HomePageDataController homePageDataController;
   late HomePageModel homePageModel;
 
   TextEditingController? searchTextFieldcontroller;
+
   HomePage({
     super.key,
     this.height,
@@ -38,6 +45,7 @@ class HomePage extends ConsumerWidget {
 
     homePageDataController = ref.watch(homePageDataControllerProvider.notifier);
     homePageModel = ref.watch(homePageDataControllerProvider);
+    selectedMoviePosterURL = ref.watch(selectedMoviePosterUrlProvider);
 
     searchTextFieldcontroller = TextEditingController();
     searchTextFieldcontroller!.text = homePageModel.searchText!;
@@ -54,7 +62,7 @@ class HomePage extends ConsumerWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            backgrouondWidget(),
+            backgroundWidget(),
             foregroundWidgets(),
           ],
         ),
@@ -62,41 +70,49 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget backgrouondWidget() {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          10.0,
-        ),
-        image: const DecorationImage(
-          image: NetworkImage(
-            'https://img00.deviantart.net/ebb2/i/2017/243/0/d/godzilla_by_tatianamakeeva-db1d5c6.png',
+  Widget backgroundWidget() {
+    if (selectedMoviePosterURL != null) {
+      return Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            10.0,
           ),
-          fit: BoxFit.cover,
+          image: DecorationImage(
+            image: NetworkImage(
+              selectedMoviePosterURL,
+            ),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: 10.0,
-          sigmaY: 10.0,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(
-              0.1,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 10.0,
+            sigmaY: 10.0,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(
+                0.1,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        height: height,
+        width: width,
+        color: Colors.black,
+      );
+    }
   }
 
   Widget foregroundWidgets() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, height! * 0.02, 0, 0),
-      width: width! * 0.88,
+      width: width! * 0.90,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -177,7 +193,7 @@ class HomePage extends ConsumerWidget {
         height: 1,
         color: Colors.white24,
       ),
-      onChanged: (value) {
+      onChanged: (dynamic value) {
         value.toString().isNotEmpty
             ? homePageDataController.updateSearchCategory(value)
             : null;
@@ -217,29 +233,13 @@ class HomePage extends ConsumerWidget {
   Widget movieListViewWidget() {
     final List<MoviesList> movies = homePageModel.movies!;
 
-    for (var i = 0; i < 10; i++) {
-      movies.add(
-        MoviesList(
-          name: "No Way Up",
-          language: "en",
-          isAdult: false,
-          description:
-              "Characters from different backgrounds are thrown together when the plane they're travelling on crashes into the Pacific Ocean. A nightmare fight for survival ensues with the air supply running out and dangers creeping in from all sides.",
-          posterPath: "/7FpGJTN8IL6IBvQMp6YHBFyhO9Z.jpg",
-          backDropPath: "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
-          rating: 5.8,
-          releaseDate: "2024-01-18",
-        ),
-      );
-    }
-
     if (movies.isNotEmpty) {
       return NotificationListener(
         onNotification: (dynamic onScrollNotification) {
           if (onScrollNotification is ScrollEndNotification) {
             final before = onScrollNotification.metrics.extentBefore;
-            final max = onScrollNotification.metrics.maxScrollExtent;
-            if (before == max) {
+            final end = onScrollNotification.metrics.maxScrollExtent;
+            if (before == end) {
               homePageDataController.getMovies();
               return true;
             }
@@ -248,23 +248,26 @@ class HomePage extends ConsumerWidget {
           return false;
         },
         child: ListView.builder(
-            itemCount: movies.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: height! * 0.01,
-                  horizontal: 0,
+          itemCount: movies.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: height! * 0.01,
+                horizontal: 0,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  selectedMoviePosterURL = movies[index].posterURL();
+                },
+                child: MovieTile(
+                  movie: movies[index],
+                  height: height! * 0.20,
+                  width: width! * 0.85,
                 ),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: MovieTile(
-                    movie: movies[index],
-                    height: height! * 0.20,
-                    width: width! * 0.85,
-                  ),
-                ),
-              );
-            }),
+              ),
+            );
+          },
+        ),
       );
     } else {
       return const Center(
