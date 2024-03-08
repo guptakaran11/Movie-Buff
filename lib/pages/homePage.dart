@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, file_names, prefer_typing_uninitialized_variables, use_key_in_widget_constructors
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:entertainment/controllers/homePageDataController.dart';
@@ -16,9 +17,9 @@ final homePageDataControllerProvider =
   return HomePageDataController();
 });
 
-final selectedMoviePosterUrlProvider = StateProvider<String>((ref) {
+final selectedMoviePosterUrlProvider = StateProvider<String?>((ref) {
   final movies = ref.watch(homePageDataControllerProvider).movies!;
-  return movies.isNotEmpty ? movies[0].posterURL() : 'null';
+  return movies.isNotEmpty ? movies[0].posterURL() : null;
 });
 
 class HomePage extends ConsumerWidget {

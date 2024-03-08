@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:dio/dio.dart';
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/services/httpServices.dart';

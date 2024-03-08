@@ -26,7 +26,7 @@ class MovieTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         moviePosterWidget(
-          movie!.posterURL(),
+          movie!.posterURL().toString(),
         ),
         movieInfoWidget(),
       ],

@@ -2,6 +2,7 @@
 // import 'dart:convert';
 
 import 'package:entertainment/models/appConfigModel.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class MoviesList {
@@ -9,7 +10,7 @@ class MoviesList {
   final String? language;
   final bool? isAdult;
   final String? description;
-  final String? posterPath;
+  final String posterPath;
   final String? backdropPath;
   final num? rating;
   final String? releaseDate;
@@ -19,7 +20,7 @@ class MoviesList {
     this.language,
     this.isAdult,
     this.description,
-    this.posterPath,
+    required this.posterPath,
     this.backdropPath,
     this.rating,
     this.releaseDate,
