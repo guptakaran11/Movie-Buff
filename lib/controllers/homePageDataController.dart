@@ -33,7 +33,7 @@ class HomePageDataController extends StateNotifier<HomePageModel> {
         log('Searching movies for query: ${state.searchText}');
         movies = await (moviesService.searchMovies(state.searchText));
       }
-      log('Received movies: $movies');
+      // log('Received movies: $movies');
       state = state.copyWith(
         movies: [...state.movies!, ...movies!],
         page: state.page! + 1,

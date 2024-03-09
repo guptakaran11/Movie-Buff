@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, file_names, prefer_typing_uninitialized_variables, use_key_in_widget_constructors
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:entertainment/controllers/homePageDataController.dart';
@@ -50,10 +49,10 @@ class HomePage extends ConsumerWidget {
 
     searchTextFieldcontroller = TextEditingController();
     searchTextFieldcontroller!.text = homePageModel.searchText!;
-    return buildUI();
+    return buildUI(ref);
   }
 
-  Widget buildUI() {
+  Widget buildUI(WidgetRef ref) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
@@ -64,7 +63,7 @@ class HomePage extends ConsumerWidget {
           alignment: Alignment.center,
           children: [
             backgroundWidget(),
-            foregroundWidgets(),
+            foregroundWidgets(ref),
           ],
         ),
       ),
@@ -110,7 +109,7 @@ class HomePage extends ConsumerWidget {
     }
   }
 
-  Widget foregroundWidgets() {
+  Widget foregroundWidgets(WidgetRef ref) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, height! * 0.02, 0, 0),
       width: width! * 0.90,
@@ -125,7 +124,7 @@ class HomePage extends ConsumerWidget {
             padding: EdgeInsets.symmetric(
               vertical: height! * 0.01,
             ),
-            child: movieListViewWidget(),
+            child: movieListViewWidget(ref),
           ),
         ],
       ),
@@ -231,8 +230,9 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget movieListViewWidget() {
-    final List<MoviesList> movies = homePageModel.movies!;
+  Widget movieListViewWidget(WidgetRef ref) {
+    final List<MoviesList> movies =
+        ref.watch(homePageDataControllerProvider).movies!;
 
     if (movies.isNotEmpty) {
       return NotificationListener(
@@ -241,7 +241,7 @@ class HomePage extends ConsumerWidget {
             final before = onScrollNotification.metrics.extentBefore;
             final end = onScrollNotification.metrics.maxScrollExtent;
             if (before == end) {
-              homePageDataController.getMovies();
+              ref.read(homePageDataControllerProvider.notifier).getMovies();
               return true;
             }
             return false;
@@ -258,7 +258,8 @@ class HomePage extends ConsumerWidget {
               ),
               child: GestureDetector(
                 onTap: () {
-                  selectedMoviePosterURL = movies[index].posterURL();
+                  ref.read(selectedMoviePosterUrlProvider.notifier).state =
+                      movies[index].posterURL();
                 },
                 child: MovieTile(
                   movie: movies[index],
