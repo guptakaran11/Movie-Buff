@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/services/httpServices.dart';
@@ -13,7 +15,6 @@ class MoviesServices {
   MoviesServices() {
     http = getIt.get<HTTPService>();
   }
-
 
   Future<List<MoviesList>?> getPopularMovies({int? page}) async {
     Response? response = await http.get('/movie/popular', query: {
@@ -47,7 +48,8 @@ class MoviesServices {
     }
   }
 
-  Future<List<MoviesList>?> searchMovies(String? searchTerm, {int? page}) async {
+  Future<List<MoviesList>?> searchMovies(String? searchTerm,
+      {int? page}) async {
     Response? response = await http.get('/search/movie', query: {
       'query': searchTerm,
       'page': page,

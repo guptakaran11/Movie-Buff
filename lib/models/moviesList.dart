@@ -2,7 +2,6 @@
 // import 'dart:convert';
 
 import 'package:entertainment/models/appConfigModel.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class MoviesList {
