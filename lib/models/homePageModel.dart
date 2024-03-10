@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:entertainment/models/moviesList.dart';
 import 'package:entertainment/models/searchCategory.dart';
 
