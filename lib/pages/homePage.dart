@@ -159,11 +159,17 @@ class HomePage extends ConsumerWidget {
       height: height! * 0.05,
       child: TextField(
         controller: searchTextFieldcontroller,
+        canRequestFocus: true,
+        onTapOutside: (event) {
+          Focus(child: backgroundWidget());
+        },
         onSubmitted: (input) {
           homePageDataController.updateTextSearch(input);
         },
         style: const TextStyle(color: Colors.white),
+        autocorrect: true,
         decoration: const InputDecoration(
+          alignLabelWithHint: true,
           focusedBorder: border,
           border: border,
           prefixIcon: Icon(
@@ -249,6 +255,8 @@ class HomePage extends ConsumerWidget {
           return false;
         },
         child: ListView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
           itemCount: movies.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
