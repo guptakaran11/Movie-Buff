@@ -81,14 +81,14 @@ class MovieTile extends StatelessWidget {
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(0, height! * 0.07, 0, 0),
-              child: Text(
-                movie!.description!,
-                maxLines: 9,
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 10,
+              child: SingleChildScrollView(
+                child: Text(
+                  movie!.description!,
+                  softWrap: true,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
