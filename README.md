@@ -68,6 +68,7 @@ Please adhere to this project's `code of conduct`.
 
 ```http
   GET https://api.themoviedb.org/3
+
 ```
 
 | Parameter | Type     | Description                |
@@ -78,6 +79,7 @@ Please adhere to this project's `code of conduct`.
 
 ```http
   GET https://image.tmdb.org/t/p/original/${id}
+
 ```
 
 | Parameter | Type     | Description                       |
