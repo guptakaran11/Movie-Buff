@@ -66,7 +66,7 @@ Please adhere to this project's `code of conduct`.
 
 #### Get all items
 
-```http
+```bash
   GET https://api.themoviedb.org/3
 
 ```
@@ -77,7 +77,7 @@ Please adhere to this project's `code of conduct`.
 
 #### Get item
 
-```http
+```bash
   GET https://image.tmdb.org/t/p/original/${id}
 
 ```
